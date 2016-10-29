@@ -16,6 +16,7 @@ class widget : public QWidget
 public:
     explicit widget(QWidget *parent = 0);
     widget(const QString& filename, QWidget *parent = 0);
+    ~widget();
 protected:
     void update();
 private slots:

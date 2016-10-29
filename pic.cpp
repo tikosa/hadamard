@@ -15,9 +15,6 @@ pic::pic(QWidget *parent)
     mFilename = QString();
     mWidth = 0;
     mHeight = 0;
-    red.reserve(1000);
-    green.reserve(1000);
-    blue.reserve(1000);
     setMinimumSize(200, 300);
     show();
 }

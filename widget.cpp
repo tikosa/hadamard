@@ -34,6 +34,28 @@ widget::widget(const QString &filename, QWidget *parent)
     setConnections();
 }
 
+widget::~widget()
+{
+    delete openButton;
+    delete originalButton;
+    delete redButton;
+    delete greenButton;
+    delete blueButton;
+    delete inverseButton;
+    delete compressButton;
+    delete cannyButton;
+    delete halvingButton;
+    delete rotateRightButton;
+    delete rotateLeftButton;
+    delete hadamardButton;
+    delete brSlider;
+
+    if (picture)
+    {
+        delete picture;
+    }
+}
+
 void widget::initButtons()
 {
     openButton = new QPushButton(tr("Open..."));
