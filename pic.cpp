@@ -5,6 +5,7 @@
 #include "hadamard.h"
 
 #include <iostream>
+#include <QImage>
 #include <QPainter>
 #include <QFile>
 

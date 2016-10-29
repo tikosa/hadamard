@@ -5,7 +5,6 @@
 #define PIC_H
 
 #include <QString>
-#include <QImage>
 #include <QtWidgets/QWidget>
 #include <QVector>
 
@@ -16,7 +15,7 @@ class pic : public QWidget
     Q_OBJECT
 public:
     // constructors
-    pic(QWidget *parent = 0);
+    explicit pic(QWidget *parent = 0);
     pic(const QString& filename, QWidget * parent = 0);
 
     // @function setFilename

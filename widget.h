@@ -14,7 +14,7 @@ class widget : public QWidget
 {
     Q_OBJECT
 public:
-    widget(QWidget *parent = 0);
+    explicit widget(QWidget *parent = 0);
     widget(const QString& filename, QWidget *parent = 0);
 protected:
     void update();
