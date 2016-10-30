@@ -170,6 +170,7 @@ void pic::compressByRow()
     green = g;
     blue = b;
 }
+
 void pic::compressByColumn()
 {
     int column = 0;
@@ -207,31 +208,33 @@ void pic::compress()
 
 void pic::inverse()
 {
-    int line = 0;
-    for (int i = 0; i < mHeight; ++i)
+    for(auto& i : red)
     {
-        line = i * mWidth;
-        for(int j = 0; j < mWidth; ++j)
-        {
-            red[line + j] = 255 - red[line + j];
-            green[line + j] = 255 - green[line + j];
-            blue[line + j] = 255 - blue[line + j];
-        }
+        i = 255 - i;
+    }
+    for(auto& i : green)
+    {
+        i = 255 - i;
+    }
+    for(auto& i : blue)
+    {
+        i = 255 - i;
     }
 }
 
 void pic::addBrightness(const int scale)
 {
-    int line = 0;
-    for (int i = 0; i < mHeight; ++i)
+    for(auto& i : red)
     {
-        line = i * mWidth;
-        for(int j = 0; j < mWidth; ++j)
-        {
-            red[line + j] += scale ;
-            green[line + j] += scale;
-            blue[line + j] += scale;
-        }
+        i += scale;
+    }
+    for(auto& i : green)
+    {
+        i += scale;
+    }
+    for(auto& i : blue)
+    {
+        i += scale;
     }
     repaint();
 }
@@ -372,12 +375,14 @@ void pic::halving()
 	blue = b;
 }
 
-void pic::rotateRight()
+void pic::rotateLeft()
 {
-	//TODO reserve memory for these vectors
-	QVector<int> r;
-	QVector<int> g;
-	QVector<int> b;
+    QVector<int> r;
+    QVector<int> g;
+    QVector<int> b;
+    r.reserve(red.size());
+    g.reserve(green.size());
+    b.reserve(blue.size());
 
     int ind = 0;
     for (int i = mWidth - 1; i >= 0; --i)
@@ -391,22 +396,21 @@ void pic::rotateRight()
         }
     }
 
-	int t = mHeight;
-	mHeight = mWidth;
-	mWidth = t;
-
+    std::swap(mWidth, mHeight);
 
 	red = r;
 	green = g;
 	blue = b;
 }
 
-void pic::rotateLeft()
+void pic::rotateRight()
 {
-	//TODO reserve memory for these vectors
-	QVector<int> r;
-	QVector<int> g;
-	QVector<int> b;
+    QVector<int> r;
+    QVector<int> g;
+    QVector<int> b;
+    r.reserve(red.size());
+    g.reserve(green.size());
+    b.reserve(blue.size());
 
     int ind = 0;
     for (int i = 0; i < mWidth; ++i)
@@ -420,10 +424,7 @@ void pic::rotateLeft()
         }
     }
 
-	int t = mHeight;
-	mHeight = mWidth;
-	mWidth = t;
-
+    std::swap(mWidth, mHeight);
 
 	red = r;
 	green = g;
