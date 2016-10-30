@@ -437,13 +437,15 @@ void pic::doHadamard()
 	int mask = 1;
 	while(! (mWidth & mask))
 	{
-		mask = mask << 1;
+		mask <<= 1;
 		++n;
 	}
 	std::cout << "degree of hadamard is " << n << std::endl;
 
 	std::unique_ptr<QVector<int> > h = hadamard(n);
 	std::unique_ptr<QVector<int> > h_tr = traverse(*h, mask);
+
+    dump_vector(*h);
 
 	QVector<int> temp(red.size());
 	// red

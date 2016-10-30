@@ -9,6 +9,9 @@
 #include <QImage>
 #include <QVector>
 
+#include <iostream>
+#include <algorithm>
+
 class QPaintEvent;
 
 class pic : public QWidget
@@ -111,5 +114,11 @@ private:
     QVector<int> green;
     QVector<int> blue;
 };
+
+template<typename T>
+void dump_vector(const QVector<T>& vec)
+{
+    std::copy(std::begin(vec), std::end(vec), std::ostream_iterator<T> (std::cout, " ") );
+}
 
 #endif // pic.h
