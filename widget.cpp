@@ -5,6 +5,7 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QBoxLayout>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 
 #include <iostream>
 #include <ctime>
@@ -48,6 +49,7 @@ widget::~widget()
     delete rotateRightButton;
     delete rotateLeftButton;
     delete hadamardButton;
+    delete saveButton;
     delete brSlider;
 
     if (picture)
@@ -70,6 +72,7 @@ void widget::initButtons()
 	rotateRightButton = new QPushButton(tr("Rotate Right"));
 	rotateLeftButton = new QPushButton(tr("Rotate Left"));
 	hadamardButton = new QPushButton(tr("Hadamard"));
+	saveButton = new QPushButton(tr("Save"));
 
     brSlider = new QSlider(Qt::Horizontal, this);
     brSlider->setMinimum(0);
@@ -92,6 +95,7 @@ void widget::layout()
 	rightLayout->addWidget(rotateRightButton);
 	rightLayout->addWidget(rotateLeftButton);
 	rightLayout->addWidget(hadamardButton);
+	rightLayout->addWidget(saveButton);
     rightLayout->setAlignment(Qt::AlignTop);
     rightLayout->setSizeConstraint(QLayout::SetFixedSize);
 
@@ -133,6 +137,8 @@ void widget::setConnections()
             this, SLOT(onRotateLeft()));
     connect(hadamardButton, SIGNAL(clicked()),
             this, SLOT(onHadamard()));
+    connect(saveButton, SIGNAL(clicked()),
+            this, SLOT(onSave()));
 }
 //TODO 
 // implementation of onOpen() slot
@@ -253,4 +259,29 @@ void widget::onHadamard()
 	picture->doHadamard();
     std::cout << "time elapsed " << double(clock() - begin_time) / CLOCKS_PER_SEC << std::endl;
 	update();
+}
+
+void widget::onSave()
+{
+    QString dirname("../");
+    if( ! mFilename.isEmpty())
+    {
+        dirname = QFileInfo(mFilename).absolutePath();
+    }
+
+    QString filename = QFileDialog::getSaveFileName(this, 
+                                    tr("Save File"), dirname, tr("Images *.bmp"));
+
+    if (filename.isEmpty())
+        return;
+
+    if(! filename.endsWith(".bmp"))
+    {
+        filename += ".bmp";
+    }
+
+    if(! picture->save(filename))
+    {
+        QMessageBox::warning(this, QString("Warning"), QString("File was not successfully written"));
+    }
 }

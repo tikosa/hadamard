@@ -5,16 +5,13 @@
 #include "hadamard.h"
 
 #include <iostream>
-#include <QImage>
 #include <QPainter>
 #include <QFile>
 
 pic::pic(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent), mWidth(0), mHeight(0)
 {
     mFilename = QString();
-    mWidth = 0;
-    mHeight = 0;
     setMinimumSize(200, 300);
     show();
 }
@@ -87,6 +84,15 @@ void pic::init(const QString &filename)
     setMinimumSize(mWidth, mHeight);
 }
 
+bool pic::save(const QString &filename)
+{
+    QImage image(mWidth, mHeight, QImage::Format_ARGB32);
+    constructImage(image);
+    QPixmap pixmap;
+    pixmap.convertFromImage(image);
+    return pixmap.save(filename, "BMP");
+}
+
 QSize pic::sizeHint()
 {
     return QSize(mWidth, mHeight);
@@ -95,8 +101,15 @@ QSize pic::sizeHint()
 void pic::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    int line = 0;
     QImage image(mWidth, mHeight, QImage::Format_ARGB32);
+    constructImage(image);
+    painter.drawImage(0, 0, image);
+    setMinimumSize(mWidth, mHeight);
+}
+
+void pic::constructImage(QImage &image)
+{
+    int line = 0;
     for (int i = 0; i <  mHeight; ++i)
     {
         line = i * mWidth;
@@ -106,8 +119,6 @@ void pic::paintEvent(QPaintEvent *)
             image.setPixel(j, i, c);
         }
     }
-    painter.drawImage(0, 0, image);
-	setMinimumSize(mWidth, mHeight);
 }
 
 void pic::paintRed()

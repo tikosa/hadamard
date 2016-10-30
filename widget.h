@@ -33,6 +33,7 @@ private slots:
 	void onRotateLeft();
     void onBrightnessChanged(int);
 	void onHadamard();
+    void onSave();
 private:
     void initButtons();
     void layout();
@@ -52,6 +53,7 @@ private:
 	QPushButton *rotateRightButton;
 	QPushButton *rotateLeftButton;
 	QPushButton *hadamardButton;
+    QPushButton *saveButton;
     QSlider *brSlider;
 
     QString mFilename;

@@ -6,6 +6,7 @@
 
 #include <QString>
 #include <QtWidgets/QWidget>
+#include <QImage>
 #include <QVector>
 
 class QPaintEvent;
@@ -31,6 +32,10 @@ public:
     // initiatiate pic, read from file
     // construct image
     void init(const QString &filename = QString());
+
+    // @function save()
+    // Write down an image
+    bool save(const QString &filename = QString());
 
     // @function height
     // gives the height of image
@@ -94,6 +99,10 @@ private:
     // @function compressByRow()
     // compresses image by row
     void compressByRow();
+
+    // @function constructImage()
+    // Construct an image from color vectors
+    void constructImage(QImage &image);
 
     QString mFilename;
     int mWidth;
