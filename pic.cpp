@@ -449,7 +449,7 @@ void pic::doHadamard()
 	}
 	std::cout << "degree of hadamard is " << n << std::endl;
 
-	std::unique_ptr<QVector<int> > h = hadamard(n);
+	std::unique_ptr<QVector<int> > h = hadamard<QVector<int> >(n);
 	std::unique_ptr<QVector<int> > h_tr = traverse(*h, mask);
 
     // dump_vector(*h, mask);

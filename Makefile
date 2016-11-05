@@ -48,13 +48,11 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = hadamard.cpp \
-		main.cpp \
+SOURCES       = main.cpp \
 		pic.cpp \
 		widget.cpp moc_pic.cpp \
 		moc_widget.cpp
-OBJECTS       = hadamard.o \
-		main.o \
+OBJECTS       = main.o \
 		pic.o \
 		widget.o \
 		moc_pic.o \
@@ -190,8 +188,7 @@ DIST          = ../../Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.7/gcc_64/mkspecs/features/lex.prf \
 		hadamard_tbb.pro hadamard.h \
 		pic.h \
-		widget.h hadamard.cpp \
-		main.cpp \
+		widget.h main.cpp \
 		pic.cpp \
 		widget.cpp
 QMAKE_TARGET  = hadamard_tbb
@@ -489,7 +486,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents hadamard.h pic.h widget.h $(DISTDIR)/
-	$(COPY_FILE) --parents hadamard.cpp main.cpp pic.cpp widget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp pic.cpp widget.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -740,50 +737,6 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
-
-hadamard.o: hadamard.cpp hadamard.h \
-		../../Qt/5.7/gcc_64/include/QtCore/QVector \
-		../../Qt/5.7/gcc_64/include/QtCore/qvector.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qalgorithms.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qglobal.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qconfig.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qfeatures.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qsystemdetection.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qprocessordetection.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qtypeinfo.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qtypetraits.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qisenum.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qsysinfo.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qlogging.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qflags.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qatomic.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qbasicatomic.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qgenericatomic.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qglobalstatic.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qmutex.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qnumeric.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qversiontagging.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qiterator.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qlist.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qrefcount.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qarraydata.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qhashfunctions.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qchar.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qpair.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qbytearraylist.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qbytearray.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qnamespace.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qstring.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qstringbuilder.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qstringlist.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qregexp.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qstringmatcher.h \
-		../../Qt/5.7/gcc_64/include/QtCore/qpoint.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hadamard.o hadamard.cpp
 
 main.o: main.cpp widget.h \
 		pic.h \
