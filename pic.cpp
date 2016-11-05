@@ -8,6 +8,18 @@
 #include <QPainter>
 #include <QFile>
 
+template<typename T>
+void dump_vector(const QVector<T>& vec, int width)
+{
+    typename QVector<T>::const_iterator first = std::begin(vec);
+    typename QVector<T>::const_iterator end = std::end(vec);
+    for(; first != end; first += width)
+    {
+        std::copy(first, first + width, std::ostream_iterator<T> (std::cout, " ") );
+        std::cout << std::endl;
+    }
+}
+
 pic::pic(QWidget *parent)
     : QWidget(parent), mWidth(0), mHeight(0)
 {
@@ -56,12 +68,6 @@ void pic::init(const QString &filename)
         green = QVector<int>(mWidth * mHeight, 0);
         blue = QVector<int>(mWidth * mHeight, 0);
     }
-    // red.clear();
-    // green.clear();
-    // blue.clear();
-    // red.resize(mWidth * mHeight);
-    // green.resize(mWidth * mHeight);
-    // blue.resize(mWidth * mHeight);
 
     unsigned char r = 0;
     unsigned char g = 0;
@@ -434,19 +440,26 @@ void pic::rotateRight()
 void pic::doHadamard()
 {
 	// compute the n for Hadamard function
-	int n = 0;
-	int mask = 1;
+	int n = 8 * (sizeof (int)) - 1;
+	unsigned int mask {0x80000000};
 	while(! (mWidth & mask))
 	{
-		mask <<= 1;
-		++n;
+		mask >>= 1;
+		--n;
 	}
 	std::cout << "degree of hadamard is " << n << std::endl;
 
 	std::unique_ptr<QVector<int> > h = hadamard(n);
 	std::unique_ptr<QVector<int> > h_tr = traverse(*h, mask);
 
-    dump_vector(*h);
+    // dump_vector(*h, mask);
+    // std::cout << std::endl;
+    // dump_vector(*h_tr, mask);
+    // std::cout << std::endl;
+
+    // QVector<int> tmp(mask * mask);
+    // mult(*h, *h_tr, tmp, mask);
+    // dump_vector(tmp, mask);
 
 	QVector<int> temp(red.size());
 	// red

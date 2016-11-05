@@ -77,6 +77,10 @@ public:
 	void rotateRight();
 	void rotateLeft();
 
+    // @function doHadamard
+	// Do the following operation
+    // V = H x V x H_t
+    // where H_t is the transpose of H
 	void doHadamard();
 
     // @function canny

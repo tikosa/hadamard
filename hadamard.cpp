@@ -3,12 +3,9 @@
 
 void fill(QVector<int>& res, unsigned int n, unsigned int& size)
 {
-	if(n == 1)
+	if(n == 0)
 	{
 		res[0] = 1;
-		res[1] = 1;
-		res[size] = 1;
-		res[size +1] = -1;
 		return;
 	}
 	fill(res, n-1, size);
@@ -37,6 +34,12 @@ void fill(QVector<int>& res, unsigned int n, unsigned int& size)
 	}
 }
 
+// @function hadamard
+// H_1 = [ 1 ]
+//
+//       [ H_n-1   H_n-1] 
+// H_n = |              |
+//       [ H_n-1  -H_n-1]
 std::unique_ptr<QVector<int> > hadamard(unsigned int n)
 {
 	unsigned int size = 1<<n; // 2^n
